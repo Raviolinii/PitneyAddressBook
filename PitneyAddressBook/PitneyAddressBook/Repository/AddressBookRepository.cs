@@ -1,16 +1,20 @@
-﻿using PitneyAddressBook.Models;
+﻿using PitneyAddressBook.DataPersistence;
+using PitneyAddressBook.Models;
 
 namespace PitneyAddressBook.Repository
 {
     public class AddressBookRepository : IAddressBookRepository
     {
         private readonly AddressBook _addressBook;
-        public AddressBookRepository()
+        private readonly IDataPersistence _dataPersistence;
+        public AddressBookRepository(IDataPersistence dataPersistence)
         {
+            _dataPersistence = dataPersistence;
             _addressBook = new AddressBook();
         }
-        public void AddAddress(Address address)
+        public async void AddAddress(Address address)
         {
+            await _dataPersistence.AddData(address);
             _addressBook.addresses.Add(address);
             _addressBook.LastAddress = address;
         }

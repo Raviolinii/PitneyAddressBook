@@ -1,3 +1,4 @@
+using PitneyAddressBook.DataPersistence;
 using PitneyAddressBook.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +10,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<IAddressBookRepository, AddressBookRepository>();
+builder.Services.AddSingleton<IDataPersistence, DataPersistence>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

@@ -1,0 +1,8 @@
+{
+  "AddressId": 0,
+  "AddressName": "string",
+  "City": "string",
+  "Street": "string",
+  "StreetNumber": "string",
+  "PostalCode": "string"
+}
