@@ -5,9 +5,9 @@ namespace PitneyAddressBook.Repository
     public class AddressBookRepository : IAddressBookRepository
     {
         private readonly AddressBook _addressBook;
-        public AddressBookRepository(AddressBook addressBook)
+        public AddressBookRepository()
         {
-            _addressBook = addressBook;
+            _addressBook = new AddressBook();
         }
         public void AddAddress(Address address)
         {
