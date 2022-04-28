@@ -40,5 +40,14 @@ namespace PitneyAddressBook.Controllers
 
             return result;
         }
+        [HttpGet("getwithcity")]
+        public List<Address> GetAddressesWithCity(string city)
+        {
+            if (city is null or "")
+                return null;
+
+            var result = _addressBookRepository.GetAddresses(city);
+            return result;
+        }
     }
 }
