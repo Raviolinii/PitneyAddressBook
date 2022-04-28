@@ -1,24 +1,27 @@
-﻿//using System.Text.Json;
-
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace PitneyAddressBook.DataPersistence
 {
-    public class DataPersistence : IDataPersistence
+    public class DataPersistence<T> : IDataPersistence<T>
     {
-        public async Task AddData(object data)
+        public void AddData(T data)
         {
             var json = JsonConvert.SerializeObject(data, Formatting.Indented);
 
             using (StreamWriter file = new("BookAddress.json", append: true))
             {
-                await file.WriteAsync(json);
+                file.WriteAsync(json);
             }
         }
 
-        public Task ReadAllData()
+        public List<T> ReadAllData()
         {
-            throw new NotImplementedException();
+            var json = File.ReadAllText("BookAddress.json");
+            var result = JsonConvert.DeserializeObject<List<T>>(json);
+            if (result is null)
+                return new List<T>();
+
+            return result;
         }
     }
 }

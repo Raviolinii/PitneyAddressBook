@@ -9,8 +9,9 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+//builder.Services.AddScoped(typeof(IDataPersistence<>), typeof(DataPersistence<>));
+builder.Services.AddSingleton(typeof(IDataPersistence<>), typeof(DataPersistence<>));
 builder.Services.AddSingleton<IAddressBookRepository, AddressBookRepository>();
-builder.Services.AddSingleton<IDataPersistence, DataPersistence>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

@@ -1,8 +1,8 @@
 ﻿namespace PitneyAddressBook.DataPersistence
 {
-    public interface IDataPersistence
+    public interface IDataPersistence<T>
     {
-        public Task AddData(Object data);
-        public Task ReadAllData();
+        public void AddData(T data);
+        public List<T> ReadAllData();
     }
 }
