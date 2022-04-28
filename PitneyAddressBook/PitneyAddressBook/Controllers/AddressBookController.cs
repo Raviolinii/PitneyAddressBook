@@ -31,5 +31,14 @@ namespace PitneyAddressBook.Controllers
             }
         }
 
+        [HttpGet("getlastaddress")]
+        public Address? GetLastAddress()
+        {
+            var result = _addressBookRepository.GetLastAddress();
+            if (result is null)
+                return null;
+
+            return result;
+        }
     }
 }
