@@ -35,16 +35,15 @@ namespace PitneyAddressBook.Controllers
         public Address? GetLastAddress()
         {
             var result = _addressBookRepository.GetLastAddress();
-            if (result is null)
-                return null;
 
             return result;
         }
+
         [HttpGet("getwithcity")]
         public List<Address> GetAddressesWithCity(string city)
         {
             if (city is null or "")
-                return null;
+                return new List<Address>();
 
             var result = _addressBookRepository.GetAddresses(city);
             return result;

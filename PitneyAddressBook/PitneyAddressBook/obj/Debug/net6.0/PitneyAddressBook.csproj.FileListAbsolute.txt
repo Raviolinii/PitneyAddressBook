@@ -25,3 +25,6 @@ E:\GitHub\PitneyAddressBook\PitneyAddressBook\PitneyAddressBook\obj\Debug\net6.0
 E:\GitHub\PitneyAddressBook\PitneyAddressBook\PitneyAddressBook\obj\Debug\net6.0\PitneyAddressBook.pdb
 E:\GitHub\PitneyAddressBook\PitneyAddressBook\PitneyAddressBook\obj\Debug\net6.0\PitneyAddressBook.genruntimeconfig.cache
 E:\GitHub\PitneyAddressBook\PitneyAddressBook\PitneyAddressBook\obj\Debug\net6.0\ref\PitneyAddressBook.dll
+E:\GitHub\PitneyAddressBook\PitneyAddressBook\PitneyAddressBook\bin\Debug\net6.0\Newtonsoft.Json.dll
+E:\GitHub\PitneyAddressBook\PitneyAddressBook\PitneyAddressBook\bin\Debug\net6.0\BackupFolder\AddressBook.json
+E:\GitHub\PitneyAddressBook\PitneyAddressBook\PitneyAddressBook\bin\Debug\net6.0\AddressBook.json
