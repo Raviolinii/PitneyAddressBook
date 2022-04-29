@@ -1,8 +1,10 @@
-﻿namespace PitneyAddressBook.DataPersistence
+﻿using PitneyAddressBook.Models;
+
+namespace PitneyAddressBook.DataPersistence
 {
-    public interface IDataPersistence<T>
+    public interface IDataPersistence
     {
-        public void AddData(T data);
-        public List<T> ReadAllData();
+        public void SaveData(AddressBook data);
+        public AddressBook ReadAllData();
     }
 }

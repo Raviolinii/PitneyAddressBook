@@ -6,35 +6,27 @@ namespace PitneyAddressBook.Repository
     public class AddressBookRepository : IAddressBookRepository
     {
         private readonly AddressBook _addressBook;
-        private readonly IDataPersistence<Address> _dataPersistence;
-        public AddressBookRepository(IDataPersistence<Address> dataPersistence)
+        private readonly IDataPersistence _dataPersistence;
+        public AddressBookRepository(IDataPersistence dataPersistence)
         {
             _dataPersistence = dataPersistence;
-            var addresses = _dataPersistence.ReadAllData();
-            _addressBook = new AddressBook();
-            foreach (var address in addresses)
-            {
-                _addressBook.addresses.Add(address);
-            }
-
-            /*if (addresses is not null)
-            {
-                _addressBook.addresses = addresses;
-                *//*foreach (var address in addresses)
-                {
-                    _addressBook.Add
-                }*//*
-            }*/
+            _addressBook = _dataPersistence.ReadAllData();
         }
         public void AddAddress(Address address)
         {
-            _dataPersistence.AddData(address);
             _addressBook.addresses.Add(address);
-            _addressBook.LastAddress = address;
+
+            _dataPersistence.SaveData(_addressBook);
         }
 
         public Address GetAddress(int id) => _addressBook.addresses.First(r => r.AddressId == id);
-        public Address? GetLastAddress() => _addressBook.LastAddress;
+        public Address? GetLastAddress()
+        {
+            if (_addressBook.addresses.Any())
+                return _addressBook.addresses.Last();
+
+            return null;
+        }
 
         public List<Address> GetAddresses(string city)
         {
