@@ -8,5 +8,7 @@ namespace PitneyAddressBook.Repository
         public Address GetAddress(int id);
         public Address? GetLastAddress();
         public List<Address> GetAddresses(string city);
+        public bool IdExists(int id);
+        public bool IsAddressValid(Address address);
     }
 }

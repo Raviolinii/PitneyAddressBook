@@ -28,3 +28,13 @@ E:\GitHub\PitneyAddressBook\PitneyAddressBook\PitneyAddressBook\obj\Debug\net6.0
 E:\GitHub\PitneyAddressBook\PitneyAddressBook\PitneyAddressBook\bin\Debug\net6.0\Newtonsoft.Json.dll
 E:\GitHub\PitneyAddressBook\PitneyAddressBook\PitneyAddressBook\bin\Debug\net6.0\BackupFolder\AddressBook.json
 E:\GitHub\PitneyAddressBook\PitneyAddressBook\PitneyAddressBook\bin\Debug\net6.0\AddressBook.json
+E:\GitHub\PitneyAddressBook\PitneyAddressBook\PitneyAddressBook\bin\Debug\net6.0\Microsoft.Extensions.DependencyModel.dll
+E:\GitHub\PitneyAddressBook\PitneyAddressBook\PitneyAddressBook\bin\Debug\net6.0\Serilog.dll
+E:\GitHub\PitneyAddressBook\PitneyAddressBook\PitneyAddressBook\bin\Debug\net6.0\Serilog.AspNetCore.dll
+E:\GitHub\PitneyAddressBook\PitneyAddressBook\PitneyAddressBook\bin\Debug\net6.0\Serilog.Extensions.Hosting.dll
+E:\GitHub\PitneyAddressBook\PitneyAddressBook\PitneyAddressBook\bin\Debug\net6.0\Serilog.Extensions.Logging.dll
+E:\GitHub\PitneyAddressBook\PitneyAddressBook\PitneyAddressBook\bin\Debug\net6.0\Serilog.Formatting.Compact.dll
+E:\GitHub\PitneyAddressBook\PitneyAddressBook\PitneyAddressBook\bin\Debug\net6.0\Serilog.Settings.Configuration.dll
+E:\GitHub\PitneyAddressBook\PitneyAddressBook\PitneyAddressBook\bin\Debug\net6.0\Serilog.Sinks.Console.dll
+E:\GitHub\PitneyAddressBook\PitneyAddressBook\PitneyAddressBook\bin\Debug\net6.0\Serilog.Sinks.Debug.dll
+E:\GitHub\PitneyAddressBook\PitneyAddressBook\PitneyAddressBook\bin\Debug\net6.0\Serilog.Sinks.File.dll

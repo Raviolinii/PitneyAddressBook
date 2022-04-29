@@ -7,10 +7,12 @@ namespace PitneyAddressBook.Repository
     {
         private readonly AddressBook _addressBook;
         private readonly IDataPersistence _dataPersistence;
-        public AddressBookRepository(IDataPersistence dataPersistence)
+        private readonly ILogger<AddressBookRepository> _logger;
+        public AddressBookRepository(IDataPersistence dataPersistence, ILogger<AddressBookRepository> logger)
         {
             _dataPersistence = dataPersistence;
             _addressBook = _dataPersistence.ReadAllData();
+            _logger = logger;
         }
         public void AddAddress(Address address)
         {
@@ -32,6 +34,32 @@ namespace PitneyAddressBook.Repository
         {
             var result = _addressBook.addresses.Where(r => r.City == city).ToList();
             return result;
+        }
+
+        public bool IdExists(int id)
+        {
+            if (_addressBook.addresses.Exists(r => r.AddressId == id))
+                return true;
+            
+            else
+                return false;
+        }
+        public bool IsAddressValid(Address address)
+        {
+            if(_addressBook.addresses.Exists(r => r.AddressId == address.AddressId))
+            {
+                
+            }
+            if (
+                address.City is not null or ""
+                || address.Street is not null or ""
+                || address.StreetNumber is not null or ""
+                || address.PostalCode is not null or ""
+                )
+                return true;
+            else return false;
+
+
         }
     }
 }
