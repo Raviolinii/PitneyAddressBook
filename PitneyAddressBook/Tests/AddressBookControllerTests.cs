@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging.Abstractions;
 using NUnit.Framework;
 using PitneyAddressBook.Controllers;
@@ -7,6 +8,7 @@ using PitneyAddressBook.Models;
 using PitneyAddressBook.Repository;
 using System.Collections.Generic;
 using System.IO;
+using System.Net;
 
 namespace Tests
 {
@@ -101,10 +103,11 @@ namespace Tests
 
             // Act
             var actionResult = controller.AddToAddressBook(addressWithDuplicatedId);
-            //var result = actionResult
+            var result = actionResult as ObjectResult;
 
             // Assert
-            
+            Assert.That(result.StatusCode, Is.EqualTo(HttpStatusCode.OK));
+
         }
 
         AddressBookController GenerateControllerWithNoAddresses()
