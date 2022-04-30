@@ -4,7 +4,7 @@ namespace PitneyAddressBook.DataPersistence
 {
     public interface IDataPersistence
     {
-        public void SaveData(AddressBook data);
+        public Task SaveData(AddressBook data);
         public AddressBook ReadAllData();
     }
 }

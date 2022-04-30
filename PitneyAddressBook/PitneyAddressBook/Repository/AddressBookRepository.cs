@@ -12,10 +12,10 @@ namespace PitneyAddressBook.Repository
             _dataPersistence = dataPersistence;
             _addressBook = _dataPersistence.ReadAllData();
         }
-        public void AddAddress(Address address)
+        public async Task AddAddress(Address address)
         {
             _addressBook.addresses.Add(address);
-            _dataPersistence.SaveData(_addressBook);
+            await _dataPersistence.SaveData(_addressBook);
         }
 
         public Address GetAddress(int id) => _addressBook.addresses.First(r => r.AddressId == id);

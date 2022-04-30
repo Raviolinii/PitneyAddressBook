@@ -17,7 +17,7 @@ namespace PitneyAddressBook.Controllers
         }
 
         [HttpPost("addaddress")]
-        public IActionResult AddToAddressBook([FromBody] Address address)
+        public async Task<IActionResult> AddToAddressBook([FromBody] Address address)
         {
             try
             {
@@ -32,7 +32,7 @@ namespace PitneyAddressBook.Controllers
                     return BadRequest();
                 }
 
-                _addressBookRepository.AddAddress(address);
+                await _addressBookRepository.AddAddress(address);
                 _logger.LogInformation($"Address with Id: {address.AddressId}'s been added successfully");
                 return Ok();
             }
@@ -44,25 +44,26 @@ namespace PitneyAddressBook.Controllers
         }
 
         [HttpGet("getlastaddress")]
-        public Address? GetLastAddress()
+        public IActionResult GetLastAddress()
         {
             var result = _addressBookRepository.GetLastAddress();
             _logger.LogInformation("Last address request");
-            return result;
+            return Ok(result);
         }
 
         [HttpGet("getbycity")]
-        public List<Address> GetAddressesByCity(string city)
+        public IActionResult GetAddressesByCity(string city)
         {
             if (city is null or "")
             {
                 _logger.LogInformation("Requested addresses with unspecified city (null or empty string)");
-                return new List<Address>();
+                List<Address> empty = new();
+                return Ok(empty);
             }
 
             _logger.LogInformation($"Requested addresses containing city {city}");
             var result = _addressBookRepository.GetAddresses(city);
-            return result;
+            return Ok(result);
         }
     }
 }

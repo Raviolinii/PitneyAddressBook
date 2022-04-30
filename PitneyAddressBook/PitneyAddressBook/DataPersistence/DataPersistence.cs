@@ -11,13 +11,13 @@ namespace PitneyAddressBook.DataPersistence
             _addressBookPath = configuration.GetValue<string>("BackupFolder:AddressBook");
         }
 
-        public void SaveData(AddressBook data)
+        public async Task SaveData(AddressBook data)
         {
             var json = JsonConvert.SerializeObject(data, Formatting.Indented);
 
             using (StreamWriter file = new(_addressBookPath))
             {
-                file.Write(json);
+                await file.WriteAsync(json);
             }
         }
 
