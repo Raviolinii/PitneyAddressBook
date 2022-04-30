@@ -24,7 +24,7 @@ namespace PitneyAddressBook.Controllers
                 if (_addressBookRepository.IdExists(address.AddressId))
                 {
                     _logger.LogError($"Address with provided Id ({address.AddressId}) already exists in Address Book");
-                    return BadRequest();
+                    return BadRequest("Provided Id already taken");
                 }
                 if (!_addressBookRepository.IsAddressValid(address))
                 {

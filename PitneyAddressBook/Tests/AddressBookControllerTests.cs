@@ -60,11 +60,15 @@ namespace Tests
         [Test]
         public void GetByCityShouldReturnListWithTwoAddress()
         {
+            // Arrange
             var controller = GenerateControllerWithAddresses();
 
-            var receivedAddresses = controller.GetAddressesByCity("City");
+            // Act
+            var receivedAddresses = controller.GetAddressesByCity("City") as ObjectResult;
 
-            //Assert.That(receivedAddresses.Count, Is.EqualTo(2));
+            // Assert
+            List<Address> list = receivedAddresses.Value as List<Address>;
+            Assert.That(list.Count, Is.EqualTo(2));
         }
 
         [Test]
@@ -74,11 +78,11 @@ namespace Tests
             var controller = GenerateControllerWithAddresses();
 
             // Act
-            var receivedAddress = controller.GetLastAddress();
+            var receivedAddress = controller.GetLastAddress() as ObjectResult;
 
             // Asserrt
-            Assert.That(receivedAddress, Is.Not.Null);
-            //Assert.That(receivedAddress.AddressId, Is.EqualTo(3));
+            Address result = receivedAddress.Value as Address;
+            Assert.That(result.AddressId, Is.EqualTo(3));
         }
 
         [Test]
@@ -88,10 +92,10 @@ namespace Tests
             var controller = GenerateControllerWithNoAddresses();
 
             // Act
-            var receivedAddress = controller.GetLastAddress();
+            var receivedAddress = controller.GetLastAddress() as ObjectResult;
 
             // Assert
-            Assert.That(receivedAddress,Is.Null);
+            Assert.That(receivedAddress.Value, Is.Null);
         }
 
         [Test]
@@ -103,11 +107,10 @@ namespace Tests
                 City = "City", Street = "Street", StreetNumber = "Number", PostalCode = "Code" };
 
             // Act
-            var actionResult = await controller.AddToAddressBook(addressWithDuplicatedId);
-            var result = actionResult;
-
+            var actionResult = await controller.AddToAddressBook(addressWithDuplicatedId) as ObjectResult;
+            var res = actionResult;
             // Assert
-            //Assert.That(result, Is.TypeOf(BadRequestResult);
+            Assert.That(res.StatusCode, Is.EqualTo(((int)HttpStatusCode.BadRequest)));
         }
 
         AddressBookController GenerateControllerWithNoAddresses()
