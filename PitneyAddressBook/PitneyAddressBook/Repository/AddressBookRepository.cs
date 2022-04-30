@@ -7,17 +7,14 @@ namespace PitneyAddressBook.Repository
     {
         private readonly AddressBook _addressBook;
         private readonly IDataPersistence _dataPersistence;
-        private readonly ILogger<AddressBookRepository> _logger;
-        public AddressBookRepository(IDataPersistence dataPersistence, ILogger<AddressBookRepository> logger)
+        public AddressBookRepository(IDataPersistence dataPersistence)
         {
             _dataPersistence = dataPersistence;
             _addressBook = _dataPersistence.ReadAllData();
-            _logger = logger;
         }
         public void AddAddress(Address address)
         {
             _addressBook.addresses.Add(address);
-
             _dataPersistence.SaveData(_addressBook);
         }
 
@@ -58,8 +55,6 @@ namespace PitneyAddressBook.Repository
                 )
                 return true;
             else return false;
-
-
         }
     }
 }
