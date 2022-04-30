@@ -46,40 +46,23 @@ namespace PitneyAddressBook.Controllers
         [HttpGet("getlastaddress")]
         public Address? GetLastAddress()
         {
-            try
-            {
-                var result = _addressBookRepository.GetLastAddress();
-                _logger.LogInformation("Last address request");
-                return result;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, $"Exception caught in GetLastAddress() in AddressBookController");
-                return null;
-            }
-
+            var result = _addressBookRepository.GetLastAddress();
+            _logger.LogInformation("Last address request");
+            return result;
         }
 
         [HttpGet("getwithcity")]
         public List<Address> GetAddressesWithCity(string city)
         {
-            try
+            if (city is null or "")
             {
-                if (city is null or "")
-                {
-                    _logger.LogInformation("Requested addresses with unspecified city (null or empty string)");
-                    return new List<Address>();
-                }
-
-                _logger.LogInformation($"Requested addresses containing city {city}");
-                var result = _addressBookRepository.GetAddresses(city);
-                return result;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, $"Exception caught in GetAddressesWithCity(string city) in AddressBookController");
+                _logger.LogInformation("Requested addresses with unspecified city (null or empty string)");
                 return new List<Address>();
             }
+
+            _logger.LogInformation($"Requested addresses containing city {city}");
+            var result = _addressBookRepository.GetAddresses(city);
+            return result;
         }
     }
 }
