@@ -1,0 +1,28 @@
+{
+  "addresses": [
+    {
+      "AddressId": 1,
+      "AddressName": "Name",
+      "City": "City",
+      "Street": "Street",
+      "StreetNumber": "Number",
+      "PostalCode": "Code"
+    },
+    {
+      "AddressId": 2,
+      "AddressName": "Name1",
+      "City": "City",
+      "Street": "Street1",
+      "StreetNumber": "Number1",
+      "PostalCode": "Code1"
+    },
+    {
+      "AddressId": 3,
+      "AddressName": "Name2",
+      "City": "City2",
+      "Street": "Street2",
+      "StreetNumber": "Number2",
+      "PostalCode": "Code2"
+    }
+  ]
+}
