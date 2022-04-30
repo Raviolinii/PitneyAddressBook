@@ -4,7 +4,7 @@ namespace PitneyAddressBook.Repository
 {
     public interface IAddressBookRepository
     {
-        public void AddAddress(Address address);
+        public Task AddAddress(Address address);
         public Address GetAddress(int id);
         public Address? GetLastAddress();
         public List<Address> GetAddresses(string city);
