@@ -43,10 +43,6 @@ namespace PitneyAddressBook.Repository
         }
         public bool IsAddressValid(Address address)
         {
-            if(_addressBook.addresses.Exists(r => r.AddressId == address.AddressId))
-            {
-                
-            }
             if (
                 address.City is not null or ""
                 || address.Street is not null or ""

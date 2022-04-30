@@ -38,7 +38,7 @@ namespace PitneyAddressBook.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, $"Exception caught in AddToAddressBook(ADdress address) in AddressBookController");
+                _logger.LogError(ex, $"Exception caught in AddToAddressBook in AddressBookController");
                 return BadRequest(ex.Message);
             }
         }
@@ -51,8 +51,8 @@ namespace PitneyAddressBook.Controllers
             return result;
         }
 
-        [HttpGet("getwithcity")]
-        public List<Address> GetAddressesWithCity(string city)
+        [HttpGet("getbycity")]
+        public List<Address> GetAddressesByCity(string city)
         {
             if (city is null or "")
             {
