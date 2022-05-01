@@ -8,16 +8,25 @@ namespace PitneyAddressBook.DataPersistence
         string _addressBookPath;
         public DataPersistence(IConfiguration configuration)
         {
-            _addressBookPath = configuration.GetValue<string>("BackupFolder:AddressBook");
+            _addressBookPath = configuration.GetValue<string>("PersistentData:AddressBook");
         }
 
-        public async Task SaveData(AddressBook data)
+        public async Task SaveDataAsync(AddressBook data)
         {
             var json = JsonConvert.SerializeObject(data, Formatting.Indented);
 
             using (StreamWriter file = new(_addressBookPath))
             {
                 await file.WriteAsync(json);
+            }
+        }
+        public void SaveData(AddressBook data)
+        {
+            var json = JsonConvert.SerializeObject(data, Formatting.Indented);
+
+            using (StreamWriter file = new(_addressBookPath))
+            {
+                file.Write(json);
             }
         }
 

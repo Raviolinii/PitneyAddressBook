@@ -32,7 +32,7 @@ namespace PitneyAddressBook.Controllers
                     return BadRequest("Invalid Address");
                 }
 
-                await _addressBookRepository.AddAddressAsync(address);
+                await _addressBookRepository.AddAsync(address);
                 _logger.LogInformation($"Address with Id: {address.AddressId}'s been added successfully");
                 return Ok("Success");
             }
@@ -44,15 +44,15 @@ namespace PitneyAddressBook.Controllers
         }
 
         [HttpGet("getlastaddress")]
-        public async Task<IActionResult> GetLastAddress()
+        public async Task<IActionResult> GetLast()
         {
-            var result = await _addressBookRepository.GetLastAddressAsync();
+            var result = await _addressBookRepository.GetLastAsync();
             _logger.LogInformation("Last address request");
             return Ok(result);
         }
 
         [HttpGet("getbycity")]
-        public async Task<IActionResult> GetAddressesByCity(string city)
+        public async Task<IActionResult> GetByCity(string city)
         {
             if (city is null or "")
             {
@@ -62,7 +62,7 @@ namespace PitneyAddressBook.Controllers
             }
 
             _logger.LogInformation($"Requested addresses containing city {city}");
-            var result = await _addressBookRepository.GetAddressesAsync(city);
+            var result = await _addressBookRepository.GetByCityAsync(city);
             return Ok(result);
         }
     }

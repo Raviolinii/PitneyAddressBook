@@ -21,7 +21,7 @@ namespace Tests
         {
             var testConfig = new Dictionary<string, string>()
             {
-                {"BackupFolder:AddressBook", "TestingJson/AddressBook.json"}
+                {"PersistentData:AddressBook", "TestingJson/AddressBook.json"}
             };
 
             var configuration = new ConfigurationBuilder().AddInMemoryCollection(testConfig).Build();
@@ -38,7 +38,7 @@ namespace Tests
             var controller = GenerateControllerWithAddresses();
 
             // Act
-            var actionResult = await controller.GetAddressesByCity(value) as ObjectResult;
+            var actionResult = await controller.GetByCity(value) as ObjectResult;
             var result = actionResult.Value as List<Address>;
 
             // Assert
@@ -52,7 +52,7 @@ namespace Tests
             var controller = GenerateControllerWithAddresses();
 
             // Act
-            var actionResult = await controller.GetAddressesByCity("City2") as ObjectResult;
+            var actionResult = await controller.GetByCity("City2") as ObjectResult;
             var result = actionResult.Value as List<Address>;
 
             // Assert
@@ -66,7 +66,7 @@ namespace Tests
             var controller = GenerateControllerWithAddresses();
 
             // Act
-            var actionResult = await controller.GetAddressesByCity("City") as ObjectResult;
+            var actionResult = await controller.GetByCity("City") as ObjectResult;
             List<Address> list = actionResult.Value as List<Address>;
 
             // Assert
@@ -80,7 +80,7 @@ namespace Tests
             var controller = GenerateControllerWithAddresses();
 
             // Act
-            var actionResult = await controller.GetLastAddress() as ObjectResult;
+            var actionResult = await controller.GetLast() as ObjectResult;
             Address result = actionResult.Value as Address;
 
             // Asserrt
@@ -94,7 +94,7 @@ namespace Tests
             var controller = GenerateControllerWithNoAddresses();
 
             // Act
-            var actionResult = await controller.GetLastAddress() as ObjectResult;
+            var actionResult = await controller.GetLast() as ObjectResult;
 
             // Assert
             Assert.That(actionResult.Value, Is.Null);
@@ -188,6 +188,5 @@ namespace Tests
             addressBook.addresses = addresses;
             _dataPersistence.SaveData(addressBook);
         }
-
     }
 }
