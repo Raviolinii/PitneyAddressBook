@@ -2,10 +2,8 @@ E:\GitHub\PitneyAddressBook\PitneyAddressBook\Tests\bin\Debug\net6.0\CoverletSou
 E:\GitHub\PitneyAddressBook\PitneyAddressBook\Tests\bin\Debug\net6.0\testhost.dll
 E:\GitHub\PitneyAddressBook\PitneyAddressBook\Tests\bin\Debug\net6.0\PitneyAddressBook.deps.json
 E:\GitHub\PitneyAddressBook\PitneyAddressBook\Tests\bin\Debug\net6.0\PitneyAddressBook.runtimeconfig.json
-E:\GitHub\PitneyAddressBook\PitneyAddressBook\Tests\bin\Debug\net6.0\AddressBook.json
 E:\GitHub\PitneyAddressBook\PitneyAddressBook\Tests\bin\Debug\net6.0\appsettings.Development.json
 E:\GitHub\PitneyAddressBook\PitneyAddressBook\Tests\bin\Debug\net6.0\appsettings.json
-E:\GitHub\PitneyAddressBook\PitneyAddressBook\Tests\bin\Debug\net6.0\BackupFolder\AddressBook.json
 E:\GitHub\PitneyAddressBook\PitneyAddressBook\Tests\bin\Debug\net6.0\PitneyAddressBook.exe
 E:\GitHub\PitneyAddressBook\PitneyAddressBook\Tests\bin\Debug\net6.0\testhost.exe
 E:\GitHub\PitneyAddressBook\PitneyAddressBook\Tests\bin\Debug\net6.0\Microsoft.TestPlatform.PlatformAbstractions.dll
@@ -121,7 +119,7 @@ E:\GitHub\PitneyAddressBook\PitneyAddressBook\Tests\obj\Debug\net6.0\refint\Test
 E:\GitHub\PitneyAddressBook\PitneyAddressBook\Tests\obj\Debug\net6.0\Tests.pdb
 E:\GitHub\PitneyAddressBook\PitneyAddressBook\Tests\obj\Debug\net6.0\Tests.genruntimeconfig.cache
 E:\GitHub\PitneyAddressBook\PitneyAddressBook\Tests\obj\Debug\net6.0\ref\Tests.dll
-E:\GitHub\PitneyAddressBook\PitneyAddressBook\Tests\bin\Debug\net6.0\TestingssJson\AddressBook2.json
 E:\GitHub\PitneyAddressBook\PitneyAddressBook\Tests\bin\Debug\net6.0\System.Net.Http.Formatting.dll
 E:\GitHub\PitneyAddressBook\PitneyAddressBook\Tests\bin\Debug\net6.0\System.Web.Http.dll
 E:\GitHub\PitneyAddressBook\PitneyAddressBook\Tests\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll
+E:\GitHub\PitneyAddressBook\PitneyAddressBook\Tests\bin\Debug\net6.0\PersistentData\AddressBook.json

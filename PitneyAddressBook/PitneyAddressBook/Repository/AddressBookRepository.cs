@@ -12,14 +12,14 @@ namespace PitneyAddressBook.Repository
             _dataPersistence = dataPersistence;
             _addressBook = _dataPersistence.ReadAllData();
         }
-        public async Task AddAddressAsync(Address address)
+
+        public async Task AddAsync(Address address)
         {
             _addressBook.addresses.Add(address);
-            await _dataPersistence.SaveData(_addressBook);
+            await _dataPersistence.SaveDataAsync(_addressBook);
         }
 
-        public Address GetAddress(int id) => _addressBook.addresses.First(r => r.AddressId == id);
-        public async Task<Address?> GetLastAddressAsync()
+        public async Task<Address?> GetLastAsync()
         {
             if (_addressBook.addresses.Any())
                 return await Task.Run(() =>
@@ -30,7 +30,7 @@ namespace PitneyAddressBook.Repository
             return null;
         }
 
-        public async Task<List<Address>> GetAddressesAsync(string city)
+        public async Task<List<Address>> GetByCityAsync(string city)
         {
             var result = await Task.Run(() =>
             {

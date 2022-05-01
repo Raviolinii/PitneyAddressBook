@@ -8,18 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="TestingssJson\AddressBook2.json" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="TestingssJson\AddressBook2.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.11.0" />
     <PackageReference Include="NUnit" Version="3.13.2" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.0.0" />
