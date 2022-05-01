@@ -12,24 +12,30 @@ namespace PitneyAddressBook.Repository
             _dataPersistence = dataPersistence;
             _addressBook = _dataPersistence.ReadAllData();
         }
-        public async Task AddAddress(Address address)
+        public async Task AddAddressAsync(Address address)
         {
             _addressBook.addresses.Add(address);
             await _dataPersistence.SaveData(_addressBook);
         }
 
         public Address GetAddress(int id) => _addressBook.addresses.First(r => r.AddressId == id);
-        public Address? GetLastAddress()
+        public async Task<Address?> GetLastAddressAsync()
         {
             if (_addressBook.addresses.Any())
-                return _addressBook.addresses.Last();
+                return await Task.Run(() =>
+                {
+                    return _addressBook.addresses.Last();
+                });
 
             return null;
         }
 
-        public List<Address> GetAddresses(string city)
+        public async Task<List<Address>> GetAddressesAsync(string city)
         {
-            var result = _addressBook.addresses.Where(r => r.City == city).ToList();
+            var result = await Task.Run(() =>
+            {
+                return _addressBook.addresses.Where(r => r.City == city).ToList();
+            });
             return result;
         }
 
@@ -37,7 +43,7 @@ namespace PitneyAddressBook.Repository
         {
             if (_addressBook.addresses.Exists(r => r.AddressId == id))
                 return true;
-            
+
             else
                 return false;
         }
