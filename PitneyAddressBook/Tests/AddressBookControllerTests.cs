@@ -1,192 +1,206 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging.Abstractions;
+using Moq;
 using NUnit.Framework;
 using PitneyAddressBook.Controllers;
-using PitneyAddressBook.DataPersistence;
 using PitneyAddressBook.Models;
 using PitneyAddressBook.Repository;
+using System;
 using System.Collections.Generic;
-using System.IO;
+using System.Linq;
 using System.Net;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Tests
 {
     public class AddressBookControllerTests
     {
-        private readonly DataPersistence _dataPersistence;
+        private readonly AddressBookController _sut;
+        private readonly Mock<IAddressBookRepository> _addressBookRepositoryMock = new Mock<IAddressBookRepository>();
 
         public AddressBookControllerTests()
         {
-            var testConfig = new Dictionary<string, string>()
-            {
-                {"PersistentData:AddressBook", "TestingJson/AddressBook.json"}
-            };
-
-            var configuration = new ConfigurationBuilder().AddInMemoryCollection(testConfig).Build();
-            _dataPersistence = new(configuration);
-        }
-
-        [Test]
-        [TestCase("")]
-        [TestCase(null)]
-        [TestCase("NotIncludedCity")]
-        public async Task GetByCityWhenNoAddressWasGivenOrNotFoundShouldReturnEmptyList(string? value)
-        {
-            // Arrange
-            var controller = GenerateControllerWithAddresses();
-
-            // Act
-            var actionResult = await controller.GetByCity(value) as ObjectResult;
-            var result = actionResult.Value as List<Address>;
-
-            // Assert
-            Assert.That(result, Is.Empty);
-        }
-
-        [Test]
-        public async Task GetByCityShouldReturnListWithOneAddress()
-        {
-            // Arrange
-            var controller = GenerateControllerWithAddresses();
-
-            // Act
-            var actionResult = await controller.GetByCity("City2") as ObjectResult;
-            var result = actionResult.Value as List<Address>;
-
-            // Assert
-            Assert.That(result.Count, Is.EqualTo(1));
-        }
-
-        [Test]
-        public async Task GetByCityShouldReturnListWithTwoAddress()
-        {
-            // Arrange
-            var controller = GenerateControllerWithAddresses();
-
-            // Act
-            var actionResult = await controller.GetByCity("City") as ObjectResult;
-            List<Address> list = actionResult.Value as List<Address>;
-
-            // Assert
-            Assert.That(list.Count, Is.EqualTo(2));
-        }
-
-        [Test]
-        public async Task GetLastAddressShouldReturnAddressWithId3()
-        {
-            // Arrange
-            var controller = GenerateControllerWithAddresses();
-
-            // Act
-            var actionResult = await controller.GetLast() as ObjectResult;
-            Address result = actionResult.Value as Address;
-
-            // Asserrt
-            Assert.That(result.AddressId, Is.EqualTo(3));
+            _sut = new AddressBookController(_addressBookRepositoryMock.Object, new NullLogger<AddressBookController>());
         }
 
         [Test]
         public async Task GetLastAddressShouldReturnNullIfListIsEmpty()
         {
+            Address? returnedAddress = null;
             // Arrange
-            var controller = GenerateControllerWithNoAddresses();
+            _addressBookRepositoryMock.Setup(r => r.GetLastAsync())
+                .ReturnsAsync(returnedAddress);
 
             // Act
-            var actionResult = await controller.GetLast() as ObjectResult;
+            var result = await _sut.GetLast() as ObjectResult;
 
             // Assert
-            Assert.That(actionResult.Value, Is.Null);
+            Assert.That(result.StatusCode, Is.EqualTo((int)HttpStatusCode.OK));
+            Assert.Null(result.Value);
         }
 
         [Test]
-        [TestCaseSource(nameof(ValidationDivideCases))]
-        public async Task AddToAddressBookShoudlReturnBadRequestIfProvidedIdExistsOrOneOfAddressPropsAreEmptyOrNull(Address invalidAddress)
+        public async Task GetLastAddressShouldReturnLastAddressIfAddressExists()
         {
             // Arrange
-            var controller = GenerateControllerWithAddresses();
+            Address? returnedAddress = GenerateSingleAddress();
+            _addressBookRepositoryMock.Setup(r => r.GetLastAsync())
+                .ReturnsAsync(returnedAddress);
 
             // Act
-            var actionResult = await controller.AddToAddressBook(invalidAddress) as ObjectResult;
+            var result = await _sut.GetLast() as ObjectResult;
 
             // Assert
-            Assert.That(actionResult.StatusCode, Is.EqualTo((int)HttpStatusCode.BadRequest));
+            Assert.NotNull(result);
+            Assert.AreEqual(result.StatusCode, (int)HttpStatusCode.OK);
+
+            Address? resultAddress = (Address?)result.Value;
+
+            Assert.NotNull(resultAddress);
+            Assert.AreEqual(resultAddress.AddressId, returnedAddress.AddressId);
+            Assert.AreEqual(resultAddress.AddressName, returnedAddress.AddressName);
+            Assert.AreEqual(resultAddress.City, returnedAddress.City);
+            Assert.AreEqual(resultAddress.Street, returnedAddress.Street);
+            Assert.AreEqual(resultAddress.StreetNumber, returnedAddress.StreetNumber);
+            Assert.AreEqual(resultAddress.PostalCode, returnedAddress.PostalCode);
         }
 
-        static Address[] ValidationDivideCases =
-    {
-        new Address {AddressId = 1, AddressName = "Name", City = "City", Street = "Street", StreetNumber = "StreetNum", PostalCode = "PostalCode"},
-        new Address {AddressId = 0, AddressName = "", City = "City", Street = "Street", StreetNumber = "StreetNum", PostalCode = "PostalCode"},
-        new Address {AddressId = 0, AddressName = null, City = "City", Street = "Street", StreetNumber = "StreetNum", PostalCode = "PostalCode"},
-        new Address {AddressId = 0, AddressName = "Name", City = "", Street = "Street", StreetNumber = "StreetNum", PostalCode = "PostalCode"},
-        new Address {AddressId = 0, AddressName = "Name", City = null, Street = "Street", StreetNumber = "StreetNum", PostalCode = "PostalCode"},
-        new Address {AddressId = 0, AddressName = "Name", City = "City", Street = "", StreetNumber = "StreetNum", PostalCode = "PostalCode"},
-        new Address {AddressId = 0, AddressName = "Name", City = "City", Street = null, StreetNumber = "StreetNum", PostalCode = "PostalCode"},
-        new Address {AddressId = 0, AddressName = "Name", City = "City", Street = "Street", StreetNumber = "", PostalCode = "PostalCode"},
-        new Address {AddressId = 0, AddressName = "Name", City = "City", Street = "Street", StreetNumber = null, PostalCode = "PostalCode"},
-        new Address {AddressId = 0, AddressName = "Name", City = "City", Street = "Street", StreetNumber = "StreetNum", PostalCode = ""},
-        new Address {AddressId = 0, AddressName = "Name", City = "City", Street = "Street", StreetNumber = "StreetNum", PostalCode = null},
-    };
+        [Test]
+        [TestCase("")]
+        [TestCase(null)]
+        public async Task GetByCityWhenNoAddressWasGivenOrNotFoundShouldReturnEmptyList(string? value)
+        {
+            // Arrange
+            List<Address> wrongResult = GenerateListWithTwoAddresses();
+
+            _addressBookRepositoryMock.Setup(r => r.GetByCityAsync(value))
+                .ReturnsAsync(wrongResult);
+
+            // Act
+            var result = await _sut.GetByCity(value) as ObjectResult;
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.AreEqual(result.StatusCode, (int)HttpStatusCode.OK);
+
+            List<Address> resultList = (List<Address>)result.Value;
+            Assert.NotNull(resultList);
+            Assert.IsEmpty(resultList);
+        }
+
+        [Test]
+        public async Task GetByCityShouldReturnListWithAddresses()
+        {
+            // Arrange
+            List<Address> returnedList = GenerateListWithTwoAddresses();
+            _addressBookRepositoryMock.Setup(r => r.GetByCityAsync("City"))
+                .ReturnsAsync(returnedList);
+
+            // Act
+            var result = await _sut.GetByCity("City") as ObjectResult;
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.AreEqual(result.StatusCode, (int)HttpStatusCode.OK);
+
+            var resultList = (List<Address>)result.Value;
+            Assert.NotNull(resultList);
+            Assert.AreEqual(resultList.Count, 2);
+
+            for (int i = 0; i < 2; i++)
+            {
+                Assert.AreEqual(resultList[i].AddressId, returnedList[i].AddressId);
+                Assert.AreEqual(resultList[i].AddressName, returnedList[i].AddressName);
+                Assert.AreEqual(resultList[i].City, returnedList[i].City);
+                Assert.AreEqual(resultList[i].Street, returnedList[i].Street);
+                Assert.AreEqual(resultList[i].StreetNumber, returnedList[i].StreetNumber);
+                Assert.AreEqual(resultList[i].PostalCode, returnedList[i].PostalCode);
+            }
+        }
+
+        [Test]
+        public async Task AddToAddressBookShoudlReturnBadRequestIfProvidedIdExists()
+        {
+            // Arrange
+            Address toAdd = GenerateSingleAddress();
+            _addressBookRepositoryMock.Setup(r => r.IdExists(toAdd.AddressId))
+                .Returns(true);
+            _addressBookRepositoryMock.Setup(r => r.IsAddressValid(toAdd))
+                .Returns(true);
+
+
+            // Act
+            var result = await _sut.AddToAddressBook(toAdd) as ObjectResult;
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.AreEqual(result.StatusCode, (int)HttpStatusCode.BadRequest);
+        }
+
+        [Test]
+        public async Task AddToAddressBookShoudlReturnBadRequestIfOneOfAddressPropsAreEmptyOrNull()
+        {
+            // Arrange
+            Address toAdd = GenerateSingleAddress();
+            _addressBookRepositoryMock.Setup(r => r.IdExists(toAdd.AddressId))
+                .Returns(false);
+            _addressBookRepositoryMock.Setup(r => r.IsAddressValid(toAdd))
+                .Returns(false);
+
+            // Act
+            var result = await _sut.AddToAddressBook(toAdd) as ObjectResult;
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.AreEqual(result.StatusCode, (int)HttpStatusCode.BadRequest);
+        }
 
         [Test]
         public async Task AddToAddressBookShoudlReturnOkIfAddeddSuccessfully()
         {
             // Arrange
-            var controller = GenerateControllerWithNoAddresses();
-            var address = new Address() { AddressId = 0, AddressName = "Name", City = "City", Street = "Street", StreetNumber = "StreetNum", PostalCode = "PostalCode" };
-            
+            Address toAdd = GenerateSingleAddress();
+            _addressBookRepositoryMock.Setup(r => r.IdExists(toAdd.AddressId))
+                .Returns(false);
+            _addressBookRepositoryMock.Setup(r => r.IsAddressValid(toAdd))
+                .Returns(true);
+
             // Act
-            var actionResult = await controller.AddToAddressBook(address) as ObjectResult;
+            var result = await _sut.AddToAddressBook(toAdd) as ObjectResult;
 
             // Assert
-            Assert.That(actionResult.StatusCode, Is.EqualTo((int)HttpStatusCode.OK));
+            Assert.NotNull(result);
+            Assert.AreEqual(result.StatusCode, (int)HttpStatusCode.OK);
         }
 
-        AddressBookController GenerateControllerWithNoAddresses()
-        {
-            List<Address> addresses = new List<Address>();
-            PopulateTestAddressBook(addresses);
-            var repository = GenerateRepository();
-            var controller = new AddressBookController(repository, new NullLogger<AddressBookController>());
-            return controller;
-        }
-        AddressBookController GenerateController()
-        {
-            var repository = GenerateRepository();
-            var controller = new AddressBookController(repository, new NullLogger<AddressBookController>());
-            return controller;
-        }
-        AddressBookController GenerateControllerWithAddresses()
-        {
-            List<Address> addresses = GenerateListOfAddresses();
-            PopulateTestAddressBook(addresses);
-            var controller = GenerateController();
-            return controller;
-        }
 
-        AddressBookRepository GenerateRepository()
+        List<Address> GenerateListWithTwoAddresses()
         {
-            AddressBookRepository result = new(_dataPersistence);
+            List<Address> result = new List<Address>()
+            {
+                new Address(){AddressId = 1, AddressName = "Name", City = "City",
+                    Street = "Street", StreetNumber = "StreetNum", PostalCode = "PostalCode"},
+
+                new Address(){AddressId = 2, AddressName = "Name2", City = "City",
+                    Street = "Street2", StreetNumber = "StreetNum2", PostalCode = "PostalCode2"},
+            };
             return result;
         }
 
-        List<Address> GenerateListOfAddresses()
+        Address GenerateSingleAddress()
         {
-            List<Address> addresses = new List<Address>()
+            var result = new Address()
             {
-                new Address(){AddressId = 1, AddressName = "Name", City = "City", Street = "Street", StreetNumber = "Number", PostalCode = "Code"},
-                new Address(){AddressId = 2, AddressName = "Name1", City = "City", Street = "Street1", StreetNumber = "Number1", PostalCode = "Code1"},
-                new Address(){AddressId = 3, AddressName = "Name2", City = "City2", Street = "Street2", StreetNumber = "Number2", PostalCode = "Code2"}
+                AddressId = 1,
+                AddressName = "Name",
+                City = "City",
+                Street = "Street",
+                StreetNumber = "StreetNum",
+                PostalCode = "PostalCode"
             };
-            return addresses;
-        }
 
-        void PopulateTestAddressBook(List<Address> addresses)
-        {
-            AddressBook addressBook = new();
-            addressBook.addresses = addresses;
-            _dataPersistence.SaveData(addressBook);
+            return result;
         }
     }
 }
