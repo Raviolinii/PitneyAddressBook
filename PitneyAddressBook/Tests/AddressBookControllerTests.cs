@@ -32,13 +32,13 @@ namespace Tests
         [TestCase("")]
         [TestCase(null)]
         [TestCase("NotIncludedCity")]
-        public void GetByCityWhenNoAddressWasGivenOrNotFoundShouldReturnEmptyList(string? value)
+        public async Task GetByCityWhenNoAddressWasGivenOrNotFoundShouldReturnEmptyList(string? value)
         {
             // Arrange
             var controller = GenerateControllerWithAddresses();
 
             // Act
-            var actionResult = controller.GetAddressesByCity(value) as ObjectResult;
+            var actionResult = await controller.GetAddressesByCity(value) as ObjectResult;
             var result = actionResult.Value as List<Address>;
 
             // Assert
@@ -46,13 +46,13 @@ namespace Tests
         }
 
         [Test]
-        public void GetByCityShouldReturnListWithOneAddress()
+        public async Task GetByCityShouldReturnListWithOneAddress()
         {
             // Arrange
             var controller = GenerateControllerWithAddresses();
 
             // Act
-            var actionResult = controller.GetAddressesByCity("City2") as ObjectResult;
+            var actionResult = await controller.GetAddressesByCity("City2") as ObjectResult;
             var result = actionResult.Value as List<Address>;
 
             // Assert
@@ -60,13 +60,13 @@ namespace Tests
         }
 
         [Test]
-        public void GetByCityShouldReturnListWithTwoAddress()
+        public async Task GetByCityShouldReturnListWithTwoAddress()
         {
             // Arrange
             var controller = GenerateControllerWithAddresses();
 
             // Act
-            var actionResult = controller.GetAddressesByCity("City") as ObjectResult;
+            var actionResult = await controller.GetAddressesByCity("City") as ObjectResult;
             List<Address> list = actionResult.Value as List<Address>;
 
             // Assert
@@ -74,13 +74,13 @@ namespace Tests
         }
 
         [Test]
-        public void GetLastAddressShouldReturnAddressWithId3()
+        public async Task GetLastAddressShouldReturnAddressWithId3()
         {
             // Arrange
             var controller = GenerateControllerWithAddresses();
 
             // Act
-            var actionResult = controller.GetLastAddress() as ObjectResult;
+            var actionResult = await controller.GetLastAddress() as ObjectResult;
             Address result = actionResult.Value as Address;
 
             // Asserrt
@@ -88,13 +88,13 @@ namespace Tests
         }
 
         [Test]
-        public void GetLastAddressShouldReturnNullIfListIsEmpty()
+        public async Task GetLastAddressShouldReturnNullIfListIsEmpty()
         {
             // Arrange
             var controller = GenerateControllerWithNoAddresses();
 
             // Act
-            var actionResult = controller.GetLastAddress() as ObjectResult;
+            var actionResult = await controller.GetLastAddress() as ObjectResult;
 
             // Assert
             Assert.That(actionResult.Value, Is.Null);
