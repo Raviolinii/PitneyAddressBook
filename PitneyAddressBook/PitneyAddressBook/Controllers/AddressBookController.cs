@@ -24,17 +24,17 @@ namespace PitneyAddressBook.Controllers
                 if (_addressBookRepository.IdExists(address.AddressId))
                 {
                     _logger.LogError($"Address with provided Id ({address.AddressId}) already exists in Address Book");
-                    return BadRequest();
+                    return BadRequest("Provided Id already taken");
                 }
                 if (!_addressBookRepository.IsAddressValid(address))
                 {
                     _logger.LogError("Address sent is invalid");
-                    return BadRequest();
+                    return BadRequest("Invalid Address");
                 }
 
                 await _addressBookRepository.AddAddress(address);
                 _logger.LogInformation($"Address with Id: {address.AddressId}'s been added successfully");
-                return Ok();
+                return Ok("Success");
             }
             catch (Exception ex)
             {

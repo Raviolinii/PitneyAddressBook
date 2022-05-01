@@ -19,6 +19,29 @@
         }
       },
       "coverlet.collector/3.1.0": {},
+      "Microsoft.AspNet.WebApi.Client/5.2.8": {
+        "dependencies": {
+          "Newtonsoft.Json": "13.0.1",
+          "Newtonsoft.Json.Bson": "1.0.1"
+        },
+        "runtime": {
+          "lib/netstandard2.0/System.Net.Http.Formatting.dll": {
+            "assemblyVersion": "5.2.8.0",
+            "fileVersion": "5.2.34876.0"
+          }
+        }
+      },
+      "Microsoft.AspNet.WebApi.Core/5.2.8": {
+        "dependencies": {
+          "Microsoft.AspNet.WebApi.Client": "5.2.8"
+        },
+        "runtime": {
+          "lib/net45/System.Web.Http.dll": {
+            "assemblyVersion": "5.2.8.0",
+            "fileVersion": "5.2.34876.0"
+          }
+        }
+      },
       "Microsoft.CodeCoverage/16.11.0": {
         "runtime": {
           "lib/netcoreapp1.0/Microsoft.VisualStudio.CodeCoverage.Shim.dll": {
@@ -373,6 +396,18 @@
           }
         }
       },
+      "Newtonsoft.Json.Bson/1.0.1": {
+        "dependencies": {
+          "NETStandard.Library": "2.0.0",
+          "Newtonsoft.Json": "13.0.1"
+        },
+        "runtime": {
+          "lib/netstandard1.3/Newtonsoft.Json.Bson.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.1.20722"
+          }
+        }
+      },
       "NuGet.Frameworks/5.0.0": {
         "runtime": {
           "lib/netstandard2.0/NuGet.Frameworks.dll": {
@@ -546,6 +581,7 @@
       "System.Text.Json/4.6.0": {},
       "PitneyAddressBook/1.0.0": {
         "dependencies": {
+          "Microsoft.AspNet.WebApi.Core": "5.2.8",
           "Microsoft.VisualStudio.Azure.Containers.Tools.Targets": "1.14.0",
           "Newtonsoft.Json": "13.0.1",
           "Serilog.AspNetCore": "5.0.0",
@@ -570,6 +606,20 @@
       "sha512": "sha512-YzYqSRrjoP5lULBhTDcTOjuM4IDPPi6PhFsl4w8EI4WdZhE6llt7E38Tg4CHyrS+QKwyu1+9OwkdDgluOdoBTw==",
       "path": "coverlet.collector/3.1.0",
       "hashPath": "coverlet.collector.3.1.0.nupkg.sha512"
+    },
+    "Microsoft.AspNet.WebApi.Client/5.2.8": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-dkGLm30CxLieMlUO+oQpJw77rDs0IIx/w3lIHsp+8X94HXCsUfLYuFmlZPsQDItC0O2l1ZlWeKLkZX7ZiNRekw==",
+      "path": "microsoft.aspnet.webapi.client/5.2.8",
+      "hashPath": "microsoft.aspnet.webapi.client.5.2.8.nupkg.sha512"
+    },
+    "Microsoft.AspNet.WebApi.Core/5.2.8": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-AQ2Mmo2IEALj16Flk9L53Wl0WZ0QgeC5GPNe7G13e1E+GdbjIdewYeU7Y7EtGe921srIneGIsrlehMVFib4xiw==",
+      "path": "microsoft.aspnet.webapi.core/5.2.8",
+      "hashPath": "microsoft.aspnet.webapi.core.5.2.8.nupkg.sha512"
     },
     "Microsoft.CodeCoverage/16.11.0": {
       "type": "package",
@@ -731,6 +781,13 @@
       "sha512": "sha512-ppPFpBcvxdsfUonNcvITKqLl3bqxWbDCZIzDWHzjpdAHRFfZe0Dw9HmA0+za13IdyrgJwpkDTDA9fHaxOrt20A==",
       "path": "newtonsoft.json/13.0.1",
       "hashPath": "newtonsoft.json.13.0.1.nupkg.sha512"
+    },
+    "Newtonsoft.Json.Bson/1.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-5PYT/IqQ+UK31AmZiSS102R6EsTo+LGTSI8bp7WAUqDKaF4wHXD8U9u4WxTI1vc64tYi++8p3dk3WWNqPFgldw==",
+      "path": "newtonsoft.json.bson/1.0.1",
+      "hashPath": "newtonsoft.json.bson.1.0.1.nupkg.sha512"
     },
     "NuGet.Frameworks/5.0.0": {
       "type": "package",

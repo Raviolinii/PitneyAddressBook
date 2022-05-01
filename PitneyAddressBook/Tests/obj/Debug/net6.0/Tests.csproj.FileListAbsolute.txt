@@ -122,3 +122,6 @@ E:\GitHub\PitneyAddressBook\PitneyAddressBook\Tests\obj\Debug\net6.0\Tests.pdb
 E:\GitHub\PitneyAddressBook\PitneyAddressBook\Tests\obj\Debug\net6.0\Tests.genruntimeconfig.cache
 E:\GitHub\PitneyAddressBook\PitneyAddressBook\Tests\obj\Debug\net6.0\ref\Tests.dll
 E:\GitHub\PitneyAddressBook\PitneyAddressBook\Tests\bin\Debug\net6.0\TestingssJson\AddressBook2.json
+E:\GitHub\PitneyAddressBook\PitneyAddressBook\Tests\bin\Debug\net6.0\System.Net.Http.Formatting.dll
+E:\GitHub\PitneyAddressBook\PitneyAddressBook\Tests\bin\Debug\net6.0\System.Web.Http.dll
+E:\GitHub\PitneyAddressBook\PitneyAddressBook\Tests\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll

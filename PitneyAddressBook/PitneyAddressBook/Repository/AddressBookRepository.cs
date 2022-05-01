@@ -44,10 +44,11 @@ namespace PitneyAddressBook.Repository
         public bool IsAddressValid(Address address)
         {
             if (
-                address.City is not null or ""
-                || address.Street is not null or ""
-                || address.StreetNumber is not null or ""
-                || address.PostalCode is not null or ""
+                address.City is not null and not ""
+                && address.AddressName is not null and not ""
+                && address.Street is not null and not ""
+                && address.StreetNumber is not null and not ""
+                && address.PostalCode is not null and not ""
                 )
                 return true;
             else return false;

@@ -38,3 +38,6 @@ E:\GitHub\PitneyAddressBook\PitneyAddressBook\PitneyAddressBook\bin\Debug\net6.0
 E:\GitHub\PitneyAddressBook\PitneyAddressBook\PitneyAddressBook\bin\Debug\net6.0\Serilog.Sinks.Console.dll
 E:\GitHub\PitneyAddressBook\PitneyAddressBook\PitneyAddressBook\bin\Debug\net6.0\Serilog.Sinks.Debug.dll
 E:\GitHub\PitneyAddressBook\PitneyAddressBook\PitneyAddressBook\bin\Debug\net6.0\Serilog.Sinks.File.dll
+E:\GitHub\PitneyAddressBook\PitneyAddressBook\PitneyAddressBook\bin\Debug\net6.0\System.Net.Http.Formatting.dll
+E:\GitHub\PitneyAddressBook\PitneyAddressBook\PitneyAddressBook\bin\Debug\net6.0\System.Web.Http.dll
+E:\GitHub\PitneyAddressBook\PitneyAddressBook\PitneyAddressBook\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll

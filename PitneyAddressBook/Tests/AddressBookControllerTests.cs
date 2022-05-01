@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging.Abstractions;
 using NUnit.Framework;
 using PitneyAddressBook.Controllers;
@@ -7,6 +8,8 @@ using PitneyAddressBook.Models;
 using PitneyAddressBook.Repository;
 using System.Collections.Generic;
 using System.IO;
+using System.Net;
+using System.Threading.Tasks;
 
 namespace Tests
 {
@@ -35,10 +38,11 @@ namespace Tests
             var controller = GenerateControllerWithAddresses();
 
             // Act
-            var receivedAddresses = controller.GetAddressesByCity(value);
+            var actionResult = controller.GetAddressesByCity(value) as ObjectResult;
+            var result = actionResult.Value as List<Address>;
 
             // Assert
-            Assert.That(receivedAddresses, Is.Empty);
+            Assert.That(result, Is.Empty);
         }
 
         [Test]
@@ -48,20 +52,25 @@ namespace Tests
             var controller = GenerateControllerWithAddresses();
 
             // Act
-            var receivedAddresses = controller.GetAddressesByCity("City2");
+            var actionResult = controller.GetAddressesByCity("City2") as ObjectResult;
+            var result = actionResult.Value as List<Address>;
 
             // Assert
-            Assert.That(receivedAddresses.Count, Is.EqualTo(1));
+            Assert.That(result.Count, Is.EqualTo(1));
         }
 
         [Test]
         public void GetByCityShouldReturnListWithTwoAddress()
         {
+            // Arrange
             var controller = GenerateControllerWithAddresses();
 
-            var receivedAddresses = controller.GetAddressesByCity("City");
+            // Act
+            var actionResult = controller.GetAddressesByCity("City") as ObjectResult;
+            List<Address> list = actionResult.Value as List<Address>;
 
-            Assert.That(receivedAddresses.Count, Is.EqualTo(2));
+            // Assert
+            Assert.That(list.Count, Is.EqualTo(2));
         }
 
         [Test]
@@ -71,11 +80,11 @@ namespace Tests
             var controller = GenerateControllerWithAddresses();
 
             // Act
-            var receivedAddress = controller.GetLastAddress();
+            var actionResult = controller.GetLastAddress() as ObjectResult;
+            Address result = actionResult.Value as Address;
 
             // Asserrt
-            Assert.That(receivedAddress, Is.Not.Null);
-            Assert.That(receivedAddress.AddressId, Is.EqualTo(3));
+            Assert.That(result.AddressId, Is.EqualTo(3));
         }
 
         [Test]
@@ -85,26 +94,53 @@ namespace Tests
             var controller = GenerateControllerWithNoAddresses();
 
             // Act
-            var receivedAddress = controller.GetLastAddress();
+            var actionResult = controller.GetLastAddress() as ObjectResult;
 
             // Assert
-            Assert.That(receivedAddress,Is.Null);
+            Assert.That(actionResult.Value, Is.Null);
         }
 
         [Test]
-        public void AddToAddressBookShoudlReturnBadRequestIfIdAlreadyExists()
+        [TestCaseSource(nameof(ValidationDivideCases))]
+        public async Task AddToAddressBookShoudlReturnBadRequestIfProvidedIdExistsOrOneOfAddressPropsAreEmptyOrNull(Address invalidAddress)
         {
             // Arrange
             var controller = GenerateControllerWithAddresses();
-            Address addressWithDuplicatedId = new() { AddressId = 1, AddressName = "Name",
-                City = "City", Street = "Street", StreetNumber = "Number", PostalCode = "Code" };
 
             // Act
-            var actionResult = controller.AddToAddressBook(addressWithDuplicatedId);
-            //var result = actionResult
+            var actionResult = await controller.AddToAddressBook(invalidAddress) as ObjectResult;
 
             // Assert
+            Assert.That(actionResult.StatusCode, Is.EqualTo((int)HttpStatusCode.BadRequest));
+        }
+
+        static Address[] ValidationDivideCases =
+    {
+        new Address {AddressId = 1, AddressName = "Name", City = "City", Street = "Street", StreetNumber = "StreetNum", PostalCode = "PostalCode"},
+        new Address {AddressId = 0, AddressName = "", City = "City", Street = "Street", StreetNumber = "StreetNum", PostalCode = "PostalCode"},
+        new Address {AddressId = 0, AddressName = null, City = "City", Street = "Street", StreetNumber = "StreetNum", PostalCode = "PostalCode"},
+        new Address {AddressId = 0, AddressName = "Name", City = "", Street = "Street", StreetNumber = "StreetNum", PostalCode = "PostalCode"},
+        new Address {AddressId = 0, AddressName = "Name", City = null, Street = "Street", StreetNumber = "StreetNum", PostalCode = "PostalCode"},
+        new Address {AddressId = 0, AddressName = "Name", City = "City", Street = "", StreetNumber = "StreetNum", PostalCode = "PostalCode"},
+        new Address {AddressId = 0, AddressName = "Name", City = "City", Street = null, StreetNumber = "StreetNum", PostalCode = "PostalCode"},
+        new Address {AddressId = 0, AddressName = "Name", City = "City", Street = "Street", StreetNumber = "", PostalCode = "PostalCode"},
+        new Address {AddressId = 0, AddressName = "Name", City = "City", Street = "Street", StreetNumber = null, PostalCode = "PostalCode"},
+        new Address {AddressId = 0, AddressName = "Name", City = "City", Street = "Street", StreetNumber = "StreetNum", PostalCode = ""},
+        new Address {AddressId = 0, AddressName = "Name", City = "City", Street = "Street", StreetNumber = "StreetNum", PostalCode = null},
+    };
+
+        [Test]
+        public async Task AddToAddressBookShoudlReturnOkIfAddeddSuccessfully()
+        {
+            // Arrange
+            var controller = GenerateControllerWithNoAddresses();
+            var address = new Address() { AddressId = 0, AddressName = "Name", City = "City", Street = "Street", StreetNumber = "StreetNum", PostalCode = "PostalCode" };
             
+            // Act
+            var actionResult = await controller.AddToAddressBook(address) as ObjectResult;
+
+            // Assert
+            Assert.That(actionResult.StatusCode, Is.EqualTo((int)HttpStatusCode.OK));
         }
 
         AddressBookController GenerateControllerWithNoAddresses()
