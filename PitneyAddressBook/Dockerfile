@@ -8,13 +8,21 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
 COPY ["PitneyAddressBook/PitneyAddressBook.csproj", "PitneyAddressBook/"]
+COPY ["Tests/Tests.csproj", "Tests/"]
+
 RUN dotnet restore "PitneyAddressBook/PitneyAddressBook.csproj"
+RUN dotnet restore "Tests/Tests.csproj"
 COPY . .
-WORKDIR "/src/PitneyAddressBook"
-RUN dotnet build "PitneyAddressBook.csproj" -c Release -o /app/build
+
+WORKDIR "/src/."
+RUN dotnet build "PitneyAddressBook/PitneyAddressBook.csproj" -c Release -o /app/build
+RUN dotnet build "Tests/Tests.csproj"
+
+FROM build AS tests
+CMD dotnet test "Tests/Tests.csproj"
 
 FROM build AS publish
-RUN dotnet publish "PitneyAddressBook.csproj" -c Release -o /app/publish
+RUN dotnet publish "PitneyAddressBook/PitneyAddressBook.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app

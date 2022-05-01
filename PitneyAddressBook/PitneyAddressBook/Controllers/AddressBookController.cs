@@ -43,7 +43,7 @@ namespace PitneyAddressBook.Controllers
             }
         }
 
-        [HttpGet("getlastaddress")]
+        [HttpGet("getlast")]
         public async Task<IActionResult> GetLast()
         {
             var result = await _addressBookRepository.GetLastAsync();
