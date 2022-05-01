@@ -4,10 +4,10 @@ namespace PitneyAddressBook.Repository
 {
     public interface IAddressBookRepository
     {
-        public Task AddAddress(Address address);
+        public Task AddAddressAsync(Address address);
         public Address GetAddress(int id);
-        public Address? GetLastAddress();
-        public List<Address> GetAddresses(string city);
+        public Task<Address?> GetLastAddressAsync();
+        public Task<List<Address>> GetAddressesAsync(string city);
         public bool IdExists(int id);
         public bool IsAddressValid(Address address);
     }
