@@ -20,15 +20,6 @@ namespace PitneyAddressBook.DataPersistence
                 await file.WriteAsync(json);
             }
         }
-        public void SaveData(AddressBook data)
-        {
-            var json = JsonConvert.SerializeObject(data, Formatting.Indented);
-
-            using (StreamWriter file = new(_addressBookPath))
-            {
-                file.Write(json);
-            }
-        }
 
         public AddressBook ReadAllData()
         {            
