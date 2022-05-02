@@ -22,15 +22,7 @@ namespace Tests
         {
             // Arrange
             AddressBook book = new AddressBook();
-            Address addressSaved = new Address()
-            {
-                AddressId = 1,
-                AddressName = "Name",
-                City = "City",
-                Street = "Street",
-                StreetNumber = "StreetNum",
-                PostalCode = "PostalCode"
-            };
+            Address addressSaved = GenerateAddress(1, "City");
 
             InitializeSubjectForTests(book);
             book.addresses.Add(addressSaved);
@@ -43,7 +35,7 @@ namespace Tests
 
             // Assert
             _dataPersistenceMock.Verify(r => r.SaveDataAsync(book), Times.Once);
-            AssertAddressesAreEqual(result, addressSaved);
+            AssertAddressesAreEqual(addressSaved, result);
         }
 
 
@@ -65,7 +57,7 @@ namespace Tests
             var result = await _sut.GetLastAsync();
 
             // Assert
-            AssertAddressesAreEqual(result, returnedAddress);
+            AssertAddressesAreEqual(returnedAddress, result);
         }
 
         [Test]
@@ -103,9 +95,9 @@ namespace Tests
 
             // Assert
             Assert.NotNull(result);
-            Assert.AreEqual(result.Count, 2);
-            AssertAddressesAreEqual(result[0], returnedAddress1);
-            AssertAddressesAreEqual(result[1], returnedAddress2);
+            Assert.AreEqual(2, result.Count);
+            AssertAddressesAreEqual(returnedAddress1, result[0]);
+            AssertAddressesAreEqual(returnedAddress2, result[1]);
         }
 
         [Test]
@@ -223,18 +215,18 @@ namespace Tests
             _sut = new AddressBookRepository(_dataPersistenceMock.Object);
         }
 
-        public void AssertAddressesAreEqual(Address returned, Address orginal)
+        public static void AssertAddressesAreEqual(Address orginal, Address returned)
         {
             Assert.NotNull(returned);
-            Assert.AreEqual(returned.AddressId, orginal.AddressId);
-            Assert.AreEqual(returned.AddressName, orginal.AddressName);
-            Assert.AreEqual(returned.City, orginal.City);
-            Assert.AreEqual(returned.Street, orginal.Street);
-            Assert.AreEqual(returned.StreetNumber, orginal.StreetNumber);
-            Assert.AreEqual(returned.PostalCode, orginal.PostalCode);
+            Assert.AreEqual(orginal.AddressId, returned.AddressId);
+            Assert.AreEqual(orginal.AddressName, returned.AddressName);
+            Assert.AreEqual(orginal.City, returned.City);
+            Assert.AreEqual(orginal.Street, returned.Street);
+            Assert.AreEqual(orginal.StreetNumber, returned.StreetNumber);
+            Assert.AreEqual(orginal.PostalCode, returned.PostalCode);
         }
 
-        public Address GenerateAddress(int id, string city)
+        public static Address GenerateAddress(int id, string city)
         {
             Address result = new Address()
             {

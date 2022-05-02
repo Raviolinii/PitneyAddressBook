@@ -126,3 +126,4 @@ E:\GitHub\PitneyAddressBook\PitneyAddressBook\Tests\bin\Debug\net6.0\PersistentD
 E:\GitHub\PitneyAddressBook\PitneyAddressBook\Tests\bin\Debug\net6.0\TestingJson\AddressBook.json
 E:\GitHub\PitneyAddressBook\PitneyAddressBook\Tests\bin\Debug\net6.0\Castle.Core.dll
 E:\GitHub\PitneyAddressBook\PitneyAddressBook\Tests\bin\Debug\net6.0\Moq.dll
+E:\GitHub\PitneyAddressBook\PitneyAddressBook\Tests\bin\Debug\net6.0\System.IO.Abstractions.dll

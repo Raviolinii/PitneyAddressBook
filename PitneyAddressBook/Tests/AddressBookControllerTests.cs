@@ -53,17 +53,11 @@ namespace Tests
 
             // Assert
             Assert.NotNull(result);
-            Assert.AreEqual(result.StatusCode, (int)HttpStatusCode.OK);
+            Assert.AreEqual((int)HttpStatusCode.OK, result.StatusCode);
 
             Address? resultAddress = (Address?)result.Value;
 
-            Assert.NotNull(resultAddress);
-            Assert.AreEqual(resultAddress.AddressId, returnedAddress.AddressId);
-            Assert.AreEqual(resultAddress.AddressName, returnedAddress.AddressName);
-            Assert.AreEqual(resultAddress.City, returnedAddress.City);
-            Assert.AreEqual(resultAddress.Street, returnedAddress.Street);
-            Assert.AreEqual(resultAddress.StreetNumber, returnedAddress.StreetNumber);
-            Assert.AreEqual(resultAddress.PostalCode, returnedAddress.PostalCode);
+            AddressBookRepositoryTests.AssertAddressesAreEqual(resultAddress, returnedAddress);
         }
 
         [Test]
@@ -82,7 +76,7 @@ namespace Tests
 
             // Assert
             Assert.NotNull(result);
-            Assert.AreEqual(result.StatusCode, (int)HttpStatusCode.OK);
+            Assert.AreEqual((int)HttpStatusCode.OK, result.StatusCode);
 
             List<Address> resultList = (List<Address>)result.Value;
             Assert.NotNull(resultList);
@@ -102,20 +96,16 @@ namespace Tests
 
             // Assert
             Assert.NotNull(result);
-            Assert.AreEqual(result.StatusCode, (int)HttpStatusCode.OK);
+            Assert.AreEqual((int)HttpStatusCode.OK, result.StatusCode);
 
             var resultList = (List<Address>)result.Value;
             Assert.NotNull(resultList);
-            Assert.AreEqual(resultList.Count, 2);
+            Assert.AreEqual(2, resultList.Count);
+
 
             for (int i = 0; i < 2; i++)
             {
-                Assert.AreEqual(resultList[i].AddressId, returnedList[i].AddressId);
-                Assert.AreEqual(resultList[i].AddressName, returnedList[i].AddressName);
-                Assert.AreEqual(resultList[i].City, returnedList[i].City);
-                Assert.AreEqual(resultList[i].Street, returnedList[i].Street);
-                Assert.AreEqual(resultList[i].StreetNumber, returnedList[i].StreetNumber);
-                Assert.AreEqual(resultList[i].PostalCode, returnedList[i].PostalCode);
+                AddressBookRepositoryTests.AssertAddressesAreEqual(returnedList[i], resultList[i]);
             }
         }
 
@@ -135,7 +125,7 @@ namespace Tests
 
             // Assert
             Assert.NotNull(result);
-            Assert.AreEqual(result.StatusCode, (int)HttpStatusCode.BadRequest);
+            Assert.AreEqual((int)HttpStatusCode.BadRequest, result.StatusCode);
         }
 
         [Test]
@@ -153,7 +143,7 @@ namespace Tests
 
             // Assert
             Assert.NotNull(result);
-            Assert.AreEqual(result.StatusCode, (int)HttpStatusCode.BadRequest);
+            Assert.AreEqual((int)HttpStatusCode.BadRequest, result.StatusCode);
         }
 
         [Test]
@@ -171,7 +161,7 @@ namespace Tests
 
             // Assert
             Assert.NotNull(result);
-            Assert.AreEqual(result.StatusCode, (int)HttpStatusCode.OK);
+            Assert.AreEqual((int)HttpStatusCode.OK, result.StatusCode);
         }
 
 
