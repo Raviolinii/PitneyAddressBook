@@ -115,19 +115,19 @@ namespace Tests
         }
 
         static Address[] ValidationDivideCases =
-    {
-        new Address {AddressId = 1, AddressName = "Name", City = "City", Street = "Street", StreetNumber = "StreetNum", PostalCode = "PostalCode"},
-        new Address {AddressId = 0, AddressName = "", City = "City", Street = "Street", StreetNumber = "StreetNum", PostalCode = "PostalCode"},
-        new Address {AddressId = 0, AddressName = null, City = "City", Street = "Street", StreetNumber = "StreetNum", PostalCode = "PostalCode"},
-        new Address {AddressId = 0, AddressName = "Name", City = "", Street = "Street", StreetNumber = "StreetNum", PostalCode = "PostalCode"},
-        new Address {AddressId = 0, AddressName = "Name", City = null, Street = "Street", StreetNumber = "StreetNum", PostalCode = "PostalCode"},
-        new Address {AddressId = 0, AddressName = "Name", City = "City", Street = "", StreetNumber = "StreetNum", PostalCode = "PostalCode"},
-        new Address {AddressId = 0, AddressName = "Name", City = "City", Street = null, StreetNumber = "StreetNum", PostalCode = "PostalCode"},
-        new Address {AddressId = 0, AddressName = "Name", City = "City", Street = "Street", StreetNumber = "", PostalCode = "PostalCode"},
-        new Address {AddressId = 0, AddressName = "Name", City = "City", Street = "Street", StreetNumber = null, PostalCode = "PostalCode"},
-        new Address {AddressId = 0, AddressName = "Name", City = "City", Street = "Street", StreetNumber = "StreetNum", PostalCode = ""},
-        new Address {AddressId = 0, AddressName = "Name", City = "City", Street = "Street", StreetNumber = "StreetNum", PostalCode = null},
-    };
+        {
+            new Address {AddressId = 1, AddressName = "Name", City = "City", Street = "Street", StreetNumber = "StreetNum", PostalCode = "PostalCode"},
+            new Address {AddressId = 0, AddressName = "", City = "City", Street = "Street", StreetNumber = "StreetNum", PostalCode = "PostalCode"},
+            new Address {AddressId = 0, AddressName = null, City = "City", Street = "Street", StreetNumber = "StreetNum", PostalCode = "PostalCode"},
+            new Address {AddressId = 0, AddressName = "Name", City = "", Street = "Street", StreetNumber = "StreetNum", PostalCode = "PostalCode"},
+            new Address {AddressId = 0, AddressName = "Name", City = null, Street = "Street", StreetNumber = "StreetNum", PostalCode = "PostalCode"},
+            new Address {AddressId = 0, AddressName = "Name", City = "City", Street = "", StreetNumber = "StreetNum", PostalCode = "PostalCode"},
+            new Address {AddressId = 0, AddressName = "Name", City = "City", Street = null, StreetNumber = "StreetNum", PostalCode = "PostalCode"},
+            new Address {AddressId = 0, AddressName = "Name", City = "City", Street = "Street", StreetNumber = "", PostalCode = "PostalCode"},
+            new Address {AddressId = 0, AddressName = "Name", City = "City", Street = "Street", StreetNumber = null, PostalCode = "PostalCode"},
+            new Address {AddressId = 0, AddressName = "Name", City = "City", Street = "Street", StreetNumber = "StreetNum", PostalCode = ""},
+            new Address {AddressId = 0, AddressName = "Name", City = "City", Street = "Street", StreetNumber = "StreetNum", PostalCode = null},
+        };
 
         [Test]
         public async Task AddToAddressBookShoudlReturnOkIfAddeddSuccessfully()
@@ -135,7 +135,7 @@ namespace Tests
             // Arrange
             var controller = GenerateControllerWithNoAddresses();
             var address = new Address() { AddressId = 0, AddressName = "Name", City = "City", Street = "Street", StreetNumber = "StreetNum", PostalCode = "PostalCode" };
-            
+
             // Act
             var actionResult = await controller.AddToAddressBook(address) as ObjectResult;
 
