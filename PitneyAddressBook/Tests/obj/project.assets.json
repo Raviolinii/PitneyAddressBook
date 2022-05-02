@@ -1008,15 +1008,6 @@
           "ref/netstandard1.5/System.IO.dll": {}
         }
       },
-      "System.IO.Abstractions/17.0.3": {
-        "type": "package",
-        "compile": {
-          "lib/net6.0/System.IO.Abstractions.dll": {}
-        },
-        "runtime": {
-          "lib/net6.0/System.IO.Abstractions.dll": {}
-        }
-      },
       "System.IO.FileSystem/4.3.0": {
         "type": "package",
         "dependencies": {
@@ -3679,29 +3670,6 @@
         "system.io.nuspec"
       ]
     },
-    "System.IO.Abstractions/17.0.3": {
-      "sha512": "P1iDcQEvrVO359GJr7BSsb2XL+YlW9/oqVtlNwszVjj1Aj9qyORBYkftOicPxdBSHiR5Eu/Px2cMu5qiD5elnA==",
-      "type": "package",
-      "path": "system.io.abstractions/17.0.3",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "README.md",
-        "icon_256x256.png",
-        "lib/net461/System.IO.Abstractions.dll",
-        "lib/net461/System.IO.Abstractions.xml",
-        "lib/net5.0/System.IO.Abstractions.dll",
-        "lib/net5.0/System.IO.Abstractions.xml",
-        "lib/net6.0/System.IO.Abstractions.dll",
-        "lib/net6.0/System.IO.Abstractions.xml",
-        "lib/netstandard2.0/System.IO.Abstractions.dll",
-        "lib/netstandard2.0/System.IO.Abstractions.xml",
-        "lib/netstandard2.1/System.IO.Abstractions.dll",
-        "lib/netstandard2.1/System.IO.Abstractions.xml",
-        "system.io.abstractions.17.0.3.nupkg.sha512",
-        "system.io.abstractions.nuspec"
-      ]
-    },
     "System.IO.FileSystem/4.3.0": {
       "sha512": "3wEMARTnuio+ulnvi+hkRNROYwa1kylvYahhcLk4HSoVdl+xxTFVeVlYOfLwrDPImGls0mDqbMhrza8qnWPTdA==",
       "type": "package",
@@ -5303,7 +5271,6 @@
       "NUnit >= 3.13.2",
       "NUnit3TestAdapter >= 4.0.0",
       "PitneyAddressBook >= 1.0.0",
-      "System.IO.Abstractions >= 17.0.3",
       "coverlet.collector >= 3.1.0"
     ]
   },
@@ -5370,10 +5337,6 @@
           "NUnit3TestAdapter": {
             "target": "Package",
             "version": "[4.0.0, )"
-          },
-          "System.IO.Abstractions": {
-            "target": "Package",
-            "version": "[17.0.3, )"
           },
           "coverlet.collector": {
             "target": "Package",
