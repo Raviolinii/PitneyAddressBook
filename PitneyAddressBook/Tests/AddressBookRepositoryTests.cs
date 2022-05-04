@@ -205,7 +205,6 @@ namespace Tests
             // Assert
             Assert.NotNull(result);
             Assert.IsTrue(result);
-
         }
 
         public void InitializeSubjectForTests(AddressBook addressBook)

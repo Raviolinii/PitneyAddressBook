@@ -50,12 +50,12 @@ namespace Tests
 
             // Act
             var result = await _sut.GetLast() as ObjectResult;
+            Address? resultAddress = (Address?)result.Value;
 
             // Assert
             Assert.NotNull(result);
             Assert.AreEqual((int)HttpStatusCode.OK, result.StatusCode);
 
-            Address? resultAddress = (Address?)result.Value;
 
             AddressBookRepositoryTests.AssertAddressesAreEqual(resultAddress, returnedAddress);
         }
@@ -73,12 +73,12 @@ namespace Tests
 
             // Act
             var result = await _sut.GetByCity(value) as ObjectResult;
+            List<Address> resultList = (List<Address>)result.Value;
 
             // Assert
             Assert.NotNull(result);
             Assert.AreEqual((int)HttpStatusCode.OK, result.StatusCode);
 
-            List<Address> resultList = (List<Address>)result.Value;
             Assert.NotNull(resultList);
             Assert.IsEmpty(resultList);
         }
@@ -93,12 +93,12 @@ namespace Tests
 
             // Act
             var result = await _sut.GetByCity("City") as ObjectResult;
+            var resultList = (List<Address>)result.Value;
 
             // Assert
             Assert.NotNull(result);
             Assert.AreEqual((int)HttpStatusCode.OK, result.StatusCode);
 
-            var resultList = (List<Address>)result.Value;
             Assert.NotNull(resultList);
             Assert.AreEqual(2, resultList.Count);
 
