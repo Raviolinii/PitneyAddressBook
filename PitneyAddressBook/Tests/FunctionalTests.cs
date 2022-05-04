@@ -13,11 +13,11 @@ using System.Threading.Tasks;
 
 namespace Tests
 {
-    public class FunctionalityTests
+    public class FunctionalTests
     {
         private readonly DataPersistence _dataPersistence;
 
-        public FunctionalityTests()
+        public FunctionalTests()
         {
             var testConfig = new Dictionary<string, string>()
             {
