@@ -17,8 +17,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddSingleton<IDataPersistence, DataPersistence>();
-builder.Services.AddSingleton<IAddressBookRepository, AddressBookRepository>();
+builder.Services.AddScoped<IDataPersistence, DataPersistence>();
+builder.Services.AddScoped<IAddressBookRepository, AddressBookRepository>();
 
 var app = builder.Build();
 

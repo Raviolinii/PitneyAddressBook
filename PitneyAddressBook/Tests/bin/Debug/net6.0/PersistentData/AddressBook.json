@@ -7,6 +7,14 @@
       "Street": "string",
       "StreetNumber": "string",
       "PostalCode": "string"
+    },
+    {
+      "AddressId": 1,
+      "AddressName": "string",
+      "City": "string",
+      "Street": "string",
+      "StreetNumber": "string",
+      "PostalCode": "string"
     }
   ]
 }
