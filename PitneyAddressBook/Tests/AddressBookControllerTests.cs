@@ -52,8 +52,6 @@ namespace Tests
             // Assert
             Assert.NotNull(result);
             Assert.AreEqual((int)HttpStatusCode.OK, result.StatusCode);
-
-
             AddressBookRepositoryTests.AssertAddressesAreEqual(resultAddress, returnedAddress);
         }
 
@@ -75,7 +73,6 @@ namespace Tests
             // Assert
             Assert.NotNull(result);
             Assert.AreEqual((int)HttpStatusCode.OK, result.StatusCode);
-
             Assert.NotNull(resultList);
             Assert.IsEmpty(resultList);
         }
@@ -95,12 +92,10 @@ namespace Tests
             // Assert
             Assert.NotNull(result);
             Assert.AreEqual((int)HttpStatusCode.OK, result.StatusCode);
-
             Assert.NotNull(resultList);
             Assert.AreEqual(2, resultList.Count);
 
-
-            for (int i = 0; i < 2; i++)
+            for (int i = 0; i < returnedList.Count; i++)
             {
                 AddressBookRepositoryTests.AssertAddressesAreEqual(returnedList[i], resultList[i]);
             }
@@ -115,7 +110,6 @@ namespace Tests
                 .Returns(true);
             _addressBookRepositoryMock.Setup(r => r.IsAddressValid(toAdd))
                 .Returns(true);
-
 
             // Act
             var result = await _sut.AddToAddressBook(toAdd) as ObjectResult;
@@ -160,7 +154,6 @@ namespace Tests
             Assert.NotNull(result);
             Assert.AreEqual((int)HttpStatusCode.OK, result.StatusCode);
         }
-
 
         List<Address> GenerateListWithTwoAddresses()
         {

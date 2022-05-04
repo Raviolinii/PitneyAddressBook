@@ -88,7 +88,7 @@ namespace Tests
             // Assert
             Assert.NotNull(result);
             Assert.AreEqual(addressBook.addresses.Count, result.addresses.Count);
-            for (int i = 0; i < 2; i++)
+            for (int i = 0; i < addressBook.addresses.Count; i++)
             {
                 AddressBookRepositoryTests.AssertAddressesAreEqual(addressBook.addresses[i], result.addresses[i]);
             }

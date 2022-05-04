@@ -12,7 +12,6 @@ namespace Tests
         private AddressBookRepository _sut;         // Cant be asigned in constructor to ensure tests are correct
         private readonly Mock<IDataPersistence> _dataPersistenceMock = new Mock<IDataPersistence>();
 
-
         [Test]
         public async Task AddAsyncShouldInvokeSaveDataAsync()
         {
@@ -33,7 +32,6 @@ namespace Tests
             _dataPersistenceMock.Verify(r => r.SaveDataAsync(book), Times.Once);
             AssertAddressesAreEqual(addressSaved, result);
         }
-
 
         [Test]
         public async Task GetLastAsyncShouldReturnAddress()
